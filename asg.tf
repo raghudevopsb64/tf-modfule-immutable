@@ -27,6 +27,7 @@ resource "aws_launch_template" "launch-template" {
 }
 
 resource "aws_autoscaling_group" "asg" {
+  name                = "${var.COMPONENT}-${var.ENV}"
   desired_capacity    = var.CAPACITY_NODES
   max_size            = var.MAX_NODES
   min_size            = var.MIN_NODES
