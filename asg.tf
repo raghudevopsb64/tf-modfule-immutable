@@ -25,3 +25,20 @@ resource "aws_launch_template" "launch-template" {
 
   #user_data = filebase64("${path.module}/example.sh")
 }
+
+resource "aws_autoscaling_group" "asg" {
+  desired_capacity    = var.CAPACITY_NODES
+  max_size            = var.MAX_NODES
+  min_size            = var.MIN_NODES
+  vpc_zone_identifier = var.SUBNET_IDS
+
+  launch_template {
+    id      = aws_launch_template.launch-template.id
+    version = "$Latest"
+  }
+  tag {
+    key                 = "Name"
+    value               = "${var.COMPONENT}-${var.ENV}"
+    propagate_at_launch = true
+  }
+}

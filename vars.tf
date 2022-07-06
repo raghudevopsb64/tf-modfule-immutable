@@ -28,3 +28,8 @@ variable "PRIVATE_HOSTED_ZONE_ID" {}
 variable "APP_VERSION" {
   default = "2.0.0"
 }
+
+variable "CAPACITY_NODES" {}
+variable "MIN_NODES" {}
+variable "MAX_NODES" {}
+
