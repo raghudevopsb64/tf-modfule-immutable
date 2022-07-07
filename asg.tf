@@ -3,7 +3,6 @@ resource "aws_launch_template" "launch-template" {
   image_id               = data.aws_ami.ami.id
   instance_type          = var.NODE_TYPE
   vpc_security_group_ids = [aws_security_group.main.id]
-  target_group_arn       = aws_lb_target_group.target-group.arn
 
   iam_instance_profile {
     name = var.IAM_POLICY_CREATE ? aws_iam_instance_profile.instance-profile.*.name[0] : null
@@ -33,6 +32,7 @@ resource "aws_autoscaling_group" "asg" {
   max_size            = var.MAX_NODES
   min_size            = var.MIN_NODES
   vpc_zone_identifier = var.SUBNET_IDS
+  target_group_arn    = aws_lb_target_group.target-group.arn
 
   launch_template {
     id      = aws_launch_template.launch-template.id
