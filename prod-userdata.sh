@@ -12,7 +12,7 @@ fi
 COMPONENT=$(ls /home/roboshop/)
 MONGODB_ENDPOINT=DOCUMENTDB_ENDPOINT
 
-sed -i -e 's/ENV/prod/' -e "s/MONGODB_ENDPOINT/${MONGODB_ENDPOINT}/" /etc/systemd/system/${COMPONENT}.service /etc/filebeat/filebeat.yml
+sed -i -e 's/ENV/prod/' -e "s/DOCDB_ENDPOINT/${MONGODB_ENDPOINT}/" /etc/systemd/system/${COMPONENT}.service /etc/filebeat/filebeat.yml
 
 systemctl daemon-reload
 systemctl restart ${COMPONENT}
