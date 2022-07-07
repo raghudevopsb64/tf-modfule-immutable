@@ -5,11 +5,11 @@ resource "aws_launch_template" "launch-template" {
   instance_type          = var.NODE_TYPE
   vpc_security_group_ids = [aws_security_group.main.id]
   #user_data              = filebase64("${path.module}/${var.ENV}-userdata.sh")
-  user_data = templatefile("${path.module}/userdata.sh", {
+  user_data = base64encode(templatefile("${path.module}/userdata.sh", {
     ENV              = var.ENV
     COMPONENT        = var.COMPONENT
     MONGODB_ENDPOINT = var.DOCDB_ENDPOINT
-  })
+  }))
 
   iam_instance_profile {
     name = var.IAM_POLICY_CREATE ? aws_iam_instance_profile.instance-profile.*.name[0] : null
