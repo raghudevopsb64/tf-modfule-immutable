@@ -1,9 +1,10 @@
 resource "aws_launch_template" "launch-template" {
+  depends_on             = [null_resource.user-data-script]
   name                   = "${var.COMPONENT}-${var.ENV}"
   image_id               = data.aws_ami.ami.id
   instance_type          = var.NODE_TYPE
   vpc_security_group_ids = [aws_security_group.main.id]
-  user_data              = filebase64("${path.module}/${var.ENV}-userdata.sh abc123")
+  user_data              = filebase64("${path.module}/${var.ENV}-userdata.sh")
 
   iam_instance_profile {
     name = var.IAM_POLICY_CREATE ? aws_iam_instance_profile.instance-profile.*.name[0] : null
