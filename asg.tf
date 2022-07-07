@@ -1,10 +1,8 @@
 resource "aws_launch_template" "launch-template" {
-  //depends_on             = [null_resource.user-data-script]
   name                   = "${var.COMPONENT}-${var.ENV}"
   image_id               = data.aws_ami.ami.id
   instance_type          = var.NODE_TYPE
   vpc_security_group_ids = [aws_security_group.main.id]
-  #user_data              = filebase64("${path.module}/${var.ENV}-userdata.sh")
   user_data = base64encode(templatefile("${path.module}/userdata.sh", {
     ENV              = var.ENV
     COMPONENT        = var.COMPONENT
