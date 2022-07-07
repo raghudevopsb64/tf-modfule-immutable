@@ -3,6 +3,7 @@ resource "aws_launch_template" "launch-template" {
   image_id               = data.aws_ami.ami.id
   instance_type          = var.NODE_TYPE
   vpc_security_group_ids = [aws_security_group.main.id]
+  user_data              = filebase64("${path.module}/${var.ENV}-userdata.sh abc123")
 
   iam_instance_profile {
     name = var.IAM_POLICY_CREATE ? aws_iam_instance_profile.instance-profile.*.name[0] : null
@@ -23,7 +24,7 @@ resource "aws_launch_template" "launch-template" {
     Name = "${var.COMPONENT}-${var.ENV}"
   }
 
-  #user_data = filebase64("${path.module}/example.sh")
+
 }
 
 resource "aws_autoscaling_group" "asg" {

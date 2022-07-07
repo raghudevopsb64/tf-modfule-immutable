@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo $1 >/opt/1
+
 if [ -f /etc/nginx/default.d/roboshop.conf ]; then
   sed -i -e 's/ENV/prod/' /etc/nginx/default.d/roboshop.conf /etc/filebeat/filebeat.yml
   systemctl restart nginx
