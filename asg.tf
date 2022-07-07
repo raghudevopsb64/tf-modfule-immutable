@@ -1,5 +1,5 @@
 resource "aws_launch_template" "launch-template" {
-  depends_on             = [null_resource.user-data-script]
+  //depends_on             = [null_resource.user-data-script]
   name                   = "${var.COMPONENT}-${var.ENV}"
   image_id               = data.aws_ami.ami.id
   instance_type          = var.NODE_TYPE
