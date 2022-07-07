@@ -32,7 +32,7 @@ resource "aws_autoscaling_group" "asg" {
   max_size            = var.MAX_NODES
   min_size            = var.MIN_NODES
   vpc_zone_identifier = var.SUBNET_IDS
-  target_group_arn    = aws_lb_target_group.target-group.arn
+  target_group_arns   = [aws_lb_target_group.target-group.arn]
 
   launch_template {
     id      = aws_launch_template.launch-template.id
