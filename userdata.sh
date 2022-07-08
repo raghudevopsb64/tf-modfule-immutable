@@ -6,8 +6,8 @@ if [ -f /etc/nginx/default.d/roboshop.conf ]; then
   systemctl restart filebeat
   exit
 fi
-
-sed -i -e "s/ENV/${ENV}/" -e "s/DOCDB_ENDPOINT/${MONGODB_ENDPOINT}/" /etc/systemd/system/${COMPONENT}.service /etc/filebeat/filebeat.yml
+MEM=$(echo $(free -m  | grep ^Mem | awk '{print $2}')*0.8 |bc | awk -F . '{print $1}')
+sed -i -e "s/ENV/${ENV}/" -e "s/DOCDB_ENDPOINT/${MONGODB_ENDPOINT}/" -e "s/-XmxMEMm/-Xmx${MEM}m/" /etc/systemd/system/${COMPONENT}.service /etc/filebeat/filebeat.yml
 
 systemctl daemon-reload
 systemctl restart ${COMPONENT}
