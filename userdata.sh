@@ -11,4 +11,5 @@ sed -i -e "s/ENV/${ENV}/" -e "s/DOCDB_ENDPOINT/${MONGODB_ENDPOINT}/" /etc/system
 
 systemctl daemon-reload
 systemctl restart ${COMPONENT}
+systemctl enable ${COMPONENT}
 systemctl restart filebeat
